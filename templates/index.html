@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Spam Detector</title>
+  <style>
+    /* Body styling to center everything */
+    body {
+      display: flex;
+      justify-content: center;   /* Center horizontally */
+      align-items: center;       /* Center vertically */
+      height: 100vh;             /* Full screen height */
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Nice gradient background */
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    /* Container box */
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%; /* Make it expand within container */
+      height: 100px;
+      border: 2px solid #2575fc;  /* Blue border */
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      outline: none;
+      resize: none;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: #2575fc;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #6a11cb;
+    }
+
+    /* Prediction text styling */
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white; /* Default white */
+    }
+
+    /* Spam = red, Not Spam = green */
+    .spam {
+      color: red;
+    }
+
+    .not-spam {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📩 Email Spam Detector</h1>
+    <form method="POST" action="/predict">
+      <textarea name="message" placeholder="Type your email message here..."></textarea>
+      <br>
+      <button type="submit">Check</button>
+    </form>
+    {% if prediction_text %}
+      <div class="result 
+        {% if 'Spam' in prediction_text %}spam{% elif 'Not Spam' in prediction_text %}not-spam{% endif %}">
+        {{ prediction_text }}
+      </div>
+    {% else %}
+      <div class="result">Waiting for your input...</div>
+    {% endif %}
+  </div>
+</body>
+</html>
